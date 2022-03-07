@@ -17,10 +17,9 @@ import io.flutter.plugin.common.PluginRegistry
 import java.io.File
 import java.util.*
 
-abstract class TakePictureNative : FlutterPlugin, MethodChannel.MethodCallHandler, ActivityAware {
+class TakePictureNativePlugin : FlutterPlugin, MethodChannel.MethodCallHandler, ActivityAware {
   private var imageCaptureCode = 1
   private var activity: Activity? = null
-  private var activityPluginBinding: ActivityPluginBinding? = null
   private var methodChannel: MethodChannel? = null
 
   var imageFile: File? = null
@@ -49,10 +48,10 @@ abstract class TakePictureNative : FlutterPlugin, MethodChannel.MethodCallHandle
           activityCompletedCallBack?.sendDocument(temp)
           imageCaptureCode += 1;
 
-          return true;
+          return true
         }
 
-        return false;
+        return false
       }
     })
   }
@@ -74,7 +73,7 @@ abstract class TakePictureNative : FlutterPlugin, MethodChannel.MethodCallHandle
         imageURI = imageFile?.let {
           FileProvider.getUriForFile(
             activity!!.applicationContext,
-            "br.com.indoai_artista.TakePictureNative",
+            "dev.tiagopaza.take_picture_native.fileProvider",
             it
           )
         }
@@ -89,6 +88,18 @@ abstract class TakePictureNative : FlutterPlugin, MethodChannel.MethodCallHandle
 
   override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
     this.methodChannel!!.setMethodCallHandler(null)
+  }
+
+  override fun onDetachedFromActivityForConfigChanges() {
+    TODO("Not yet implemented")
+  }
+
+  override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
+    TODO("Not yet implemented")
+  }
+
+  override fun onDetachedFromActivity() {
+    TODO("Not yet implemented")
   }
 
   private fun getImageTempFile(): File? {

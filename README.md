@@ -1,6 +1,6 @@
 # take_picture_native
 
-A new flutter plugin project.
+Take picture from native camera.
 
 ## Getting Started
 

@@ -1,6 +1,7 @@
 name: take_picture_native
-description: Plugin to permit call native android camera.
-version: 1.0.1
+description: Take picture from native camera.
+version: 0.0.1
+homepage: https://github.com/TiagoPaza/take_picture_native.git
 
 environment:
   sdk: ">=2.16.1 <3.0.0"
