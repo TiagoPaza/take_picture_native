@@ -104,7 +104,11 @@ class _MyAppState extends State<MyApp> {
 
 class PictureDataModel {
   final StreamController<List<String>> _streamController =
+<<<<<<< HEAD
   StreamController<List<String>>.broadcast();
+=======
+      StreamController<List<String>>.broadcast();
+>>>>>>> d28b9ddda6fbd460136d0c112b3d04538d9d3333
 
   Sink<List<String>> get inputClickState => _streamController;
 

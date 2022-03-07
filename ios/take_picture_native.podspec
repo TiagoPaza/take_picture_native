@@ -5,9 +5,9 @@
 Pod::Spec.new do |s|
   s.name             = 'take_picture_native'
   s.version          = '0.0.1'
-  s.summary          = 'A new flutter plugin project.'
+  s.summary          = 'Take picture from native camera.'
   s.description      = <<-DESC
-A new flutter plugin project.
+Take picture from native camera.
                        DESC
   s.homepage         = 'http://example.com'
   s.license          = { :file => '../LICENSE' }
