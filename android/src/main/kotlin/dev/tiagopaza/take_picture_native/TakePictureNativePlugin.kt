@@ -28,13 +28,6 @@ abstract class TakePictureNative : FlutterPlugin, MethodChannel.MethodCallHandle
 
   var activityCompletedCallBack: ActivityCompletedCallBack? = null
 
-//  open fun TakePictureNative(activity: Activity, methodChannel: MethodChannel?, binding: ActivityPluginBinding) {
-//    this.activity = activity
-//    this.methodChannel = methodChannel
-//    this.methodChannel!!.setMethodCallHandler(this)
-//    this.activityPluginBinding = binding
-//  }
-
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     this.methodChannel = MethodChannel(flutterPluginBinding.binaryMessenger, "take_picture_native")
     this.methodChannel!!.setMethodCallHandler(this)
@@ -42,7 +35,6 @@ abstract class TakePictureNative : FlutterPlugin, MethodChannel.MethodCallHandle
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
     activity = binding.activity
-//        activity.setActivity(binding.getActivity())
 
     binding.addActivityResultListener(object : PluginRegistry.ActivityResultListener {
       override fun onActivityResult(
@@ -66,7 +58,7 @@ abstract class TakePictureNative : FlutterPlugin, MethodChannel.MethodCallHandle
   }
 
   override fun onMethodCall(@NonNull call: MethodCall, result: MethodChannel.Result) {
-    if (call.method.equals("takePhoto")) {
+    if (call.method.equals("open_camera")) {
       val takePictureIntent: Intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
 
       activityCompletedCallBack = object : ActivityCompletedCallBack {
