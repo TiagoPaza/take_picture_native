@@ -4,7 +4,7 @@
     <application>
         <provider
                 android:name="androidx.core.content.FileProvider"
-                android:authorities="br.com.indoai_artista.TakePictureNative"
+                android:authorities="br.com.indoai_artista.take_picture_native.TakePictureNative.fileProvider"
                 android:exported="false"
                 android:grantUriPermissions="true">
             <meta-data

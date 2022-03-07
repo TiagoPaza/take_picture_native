@@ -1,7 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:flutter/services.dart';
 import 'package:take_picture_native/take_picture_native.dart';
 
 void main() {
@@ -12,38 +13,18 @@ class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+  PictureDataModel? _pictureDataModel;
 
   @override
   void initState() {
+    _pictureDataModel = PictureDataModel();
+    _pictureDataModel!.inputClickState.add([]);
+
     super.initState();
-    initPlatformState();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // We also handle the message potentially returning null.
-    try {
-      platformVersion =
-          await TakePictureNative.platformVersion ?? 'Unknown platform version';
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
   }
 
   @override
@@ -51,12 +32,84 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text("TAKE PICTURE NATIVE"),
         ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+        body: Container(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                child: StreamBuilder<List<String>>(
+                  stream: _pictureDataModel!.outputResult,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<String>> snapshot) {
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: const EdgeInsets.all(20.0),
+                      child: snapshot.hasData
+                          ? snapshot.data!.isNotEmpty
+                          ? ClipRRect(
+                        borderRadius: BorderRadius.circular(20.0),
+                        child: Image.file(
+                          File(snapshot.data![0]),
+                          fit: BoxFit.contain,
+                        ),
+                      )
+                          : const SizedBox.shrink()
+                          : const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(height: 20.0),
+              ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40.0),
+                    ),
+                  ),
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 20.0),
+                  child: Text(
+                    "CLICK",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                onPressed: () {
+                  TakePictureNative.openCamera.then(
+                        (List<String> data) {
+                      _pictureDataModel!.inputClickState.add(data);
+                    },
+                    onError: (e) {
+                      _pictureDataModel!.inputClickState.add([]);
+                    },
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
+}
+
+class PictureDataModel {
+  final StreamController<List<String>> _streamController =
+  StreamController<List<String>>.broadcast();
+
+  Sink<List<String>> get inputClickState => _streamController;
+
+  Stream<List<String>> get outputResult =>
+      _streamController.stream.map((data) => data);
+
+  dispose() => _streamController.close();
 }

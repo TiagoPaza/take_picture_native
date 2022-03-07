@@ -17,10 +17,9 @@ import io.flutter.plugin.common.PluginRegistry
 import java.io.File
 import java.util.*
 
-abstract class TakePictureNative : FlutterPlugin, MethodChannel.MethodCallHandler, ActivityAware {
+abstract class TakePictureNativePlugin : FlutterPlugin, MethodChannel.MethodCallHandler, ActivityAware {
   private var imageCaptureCode = 1
   private var activity: Activity? = null
-  private var activityPluginBinding: ActivityPluginBinding? = null
   private var methodChannel: MethodChannel? = null
 
   var imageFile: File? = null
@@ -59,7 +58,7 @@ abstract class TakePictureNative : FlutterPlugin, MethodChannel.MethodCallHandle
 
   override fun onMethodCall(@NonNull call: MethodCall, result: MethodChannel.Result) {
     if (call.method.equals("open_camera")) {
-      val takePictureIntent: Intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+      val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
 
       activityCompletedCallBack = object : ActivityCompletedCallBack {
         override fun sendDocument(data: List<String>) {
@@ -74,7 +73,7 @@ abstract class TakePictureNative : FlutterPlugin, MethodChannel.MethodCallHandle
         imageURI = imageFile?.let {
           FileProvider.getUriForFile(
             activity!!.applicationContext,
-            "br.com.indoai_artista.TakePictureNative",
+            "br.com.indoai_artista.take_picture_native.TakePictureNative.fileProvider",
             it
           )
         }
