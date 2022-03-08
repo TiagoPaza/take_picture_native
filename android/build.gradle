@@ -25,6 +25,8 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
+    applicationId "dev.tiagopaza.take_picture_native"
+
     compileSdkVersion 31
 
     compileOptions {

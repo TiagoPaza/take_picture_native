@@ -3,8 +3,8 @@
 
     <application>
         <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="dev.tiagopaza.take_picture_native.TakePictureNativePlugin.fileProvider"
+            android:name="dev.tiagopaza.take_picture_native.PictureProvider"
+            android:authorities="dev.tiagopaza.take_picture_native.TakePictureNativePlugin"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

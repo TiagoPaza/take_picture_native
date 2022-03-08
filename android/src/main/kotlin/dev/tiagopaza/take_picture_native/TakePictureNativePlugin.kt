@@ -73,7 +73,7 @@ class TakePictureNativePlugin : FlutterPlugin, MethodChannel.MethodCallHandler, 
         imageURI = imageFile?.let {
           FileProvider.getUriForFile(
             activity!!.applicationContext,
-            "dev.tiagopaza.take_picture_native.TakePictureNativePlugin.fileProvider",
+            "dev.tiagopaza.take_picture_native.TakePictureNativePlugin",
             it
           )
         }
