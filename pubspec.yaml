@@ -1,6 +1,6 @@
 name: take_picture_native
 description: Take picture from native camera.
-version: 1.0.8
+version: 1.0.9
 homepage: https://github.com/TiagoPaza/take_picture_native.git
 
 environment:
