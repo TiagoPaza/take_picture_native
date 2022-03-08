@@ -3,18 +3,10 @@
 
     <application>
         <provider
-<<<<<<< HEAD
-                android:name="androidx.core.content.FileProvider"
-                android:authorities="br.com.indoai_artista.take_picture_native.TakePictureNative.fileProvider"
-                android:exported="false"
-                android:grantUriPermissions="true">
-=======
             android:name="androidx.core.content.FileProvider"
             android:authorities="dev.tiagopaza.take_picture_native.TakePictureNativePlugin.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
-
->>>>>>> d28b9ddda6fbd460136d0c112b3d04538d9d3333
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />

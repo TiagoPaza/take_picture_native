@@ -49,17 +49,17 @@ class _MyAppState extends State<MyApp> {
                       padding: const EdgeInsets.all(20.0),
                       child: snapshot.hasData
                           ? snapshot.data!.isNotEmpty
-                          ? ClipRRect(
-                        borderRadius: BorderRadius.circular(20.0),
-                        child: Image.file(
-                          File(snapshot.data![0]),
-                          fit: BoxFit.contain,
-                        ),
-                      )
-                          : const SizedBox.shrink()
+                              ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  child: Image.file(
+                                    File(snapshot.data![0]),
+                                    fit: BoxFit.contain,
+                                  ),
+                                )
+                              : const SizedBox.shrink()
                           : const Center(
-                        child: CircularProgressIndicator(),
-                      ),
+                              child: CircularProgressIndicator(),
+                            ),
                     );
                   },
                 ),
@@ -67,7 +67,8 @@ class _MyAppState extends State<MyApp> {
               const SizedBox(height: 20.0),
               ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.blue),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(40.0),
@@ -85,7 +86,7 @@ class _MyAppState extends State<MyApp> {
                 ),
                 onPressed: () {
                   TakePictureNative.openCamera.then(
-                        (List<String> data) {
+                    (List<String> data) {
                       _pictureDataModel!.inputClickState.add(data);
                     },
                     onError: (e) {
@@ -104,11 +105,7 @@ class _MyAppState extends State<MyApp> {
 
 class PictureDataModel {
   final StreamController<List<String>> _streamController =
-<<<<<<< HEAD
-  StreamController<List<String>>.broadcast();
-=======
       StreamController<List<String>>.broadcast();
->>>>>>> d28b9ddda6fbd460136d0c112b3d04538d9d3333
 
   Sink<List<String>> get inputClickState => _streamController;
 
